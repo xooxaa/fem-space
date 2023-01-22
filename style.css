@@ -1,0 +1,357 @@
+/* --------- */
+/* css reset */
+/* --------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: revert;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------- */
+/* custom properties */
+/* ----------------- */
+:root {
+  /* colors */
+  --clr-dark: 230 35% 7%;
+  --clr-light: 231 77% 90%;
+  --clr-white: 0 0% 100%;
+
+  /* font-sizes */
+  --fs-900: 9.375rem;
+  --fs-800: 6.25rem;
+  --fs-700: 3.5rem;
+  --fs-600: 2rem;
+  --fs-500: 1.75rem;
+  --fs-400: 1.125rem;
+  --fs-300: 1rem;
+  --fs-200: 0.875rem;
+
+  /* font-families */
+  --ff-serif: "Bellefair", serif;
+  --ff-sans-cond: "Barlow Condensed", sans-serif;
+  --ff-sans-normal: "Barlow", sans-serif;
+
+  /* layout */
+  --gap: 2rem;
+  --underline-gap: 2em;
+  --flow-space: 2rem;
+  --container-padding: 4em;
+  --container-max-width: 80rem;
+}
+/* --------------- */
+/* utility vlasses */
+/* --------------- */
+/* layout */
+.flex {
+  display: flex;
+  gap: var(--gap, 1em);
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.col {
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  gap: var(--gap, 1em);
+}
+
+/* .flow > *:where(:not(:first-child)) */
+.flow > * + * {
+  margin-top: var(--flow-space, 1rem);
+}
+
+.container {
+  padding-inline: var(--container-padding, 2em);
+  max-width: var(--container-max-width, 80rem);
+  margin-inline: auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* colors */
+.bg-dark {
+  background-color: hsl(var(--clr-dark));
+}
+.bg-accent {
+  background-color: hsl(var(--clr-light));
+}
+.bg-white {
+  background-color: hsl(var(--clr-white));
+}
+
+.text-dark {
+  color: hsl(var(--clr-dark));
+}
+.text-accent {
+  color: hsl(var(--clr-light));
+}
+.text-white {
+  color: hsl(var(--clr-white));
+}
+
+/* typography */
+.text-center {
+  text-align: center;
+}
+
+.ff-serif {
+  font-family: var(--ff-serif);
+}
+.ff-sans-cond {
+  font-family: var(--ff-sans-cond);
+}
+.ff-sans-normal {
+  font-family: var(--ff-sans-normal);
+}
+
+.letter-spacing-1 {
+  letter-spacing: 4.75px;
+}
+.letter-spacing-2 {
+  letter-spacing: 2.7px;
+}
+.letter-spacing-3 {
+  letter-spacing: 2.35px;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+
+.fs-900 {
+  font-size: var(--fs-900);
+}
+.fs-800 {
+  font-size: var(--fs-800);
+}
+.fs-700 {
+  font-size: var(--fs-700);
+}
+.fs-600 {
+  font-size: var(--fs-600);
+}
+.fs-500 {
+  font-size: var(--fs-500);
+}
+.fs-400 {
+  font-size: var(--fs-400);
+}
+.fs-300 {
+  font-size: var(--fs-300);
+}
+.fs-200 {
+  font-size: var(--fs-200);
+}
+
+.fs-900,
+.fs-800,
+.fs-700,
+.fs-600 {
+  line-height: 1.1;
+}
+
+/* numbered-title */
+.numbered-title {
+  font-size: var(--fs-500);
+  font-family: var(--ff-sans-cond);
+  text-transform: uppercase;
+  letter-spacing: 4.75px;
+}
+
+.numbered-title span {
+  font-weight: 700;
+  color: hsl(var(--clr-white) / 0.25);
+  margin-right: 0.5em;
+}
+
+/* ---------- */
+/* Components */
+/* ---------- */
+/* large-button */
+.large-button {
+  display: grid;
+  place-content: center;
+  z-index: 1;
+  padding: 0 2em;
+  aspect-ratio: 1;
+  margin: 2em;
+  text-decoration: none;
+  border-radius: 50%;
+  position: relative;
+}
+.large-button::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: hsl(var(--clr-white) / 0.15);
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  opacity: 0;
+  transition: transform 400ms ease-in-out, opacity 400ms linear;
+}
+.large-button:hover::after,
+.large-button:focus::after {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+/* primary-navigation */
+.primary-navigation {
+  background-color: hsl(var(--clr-white) / 0.1);
+  justify-content: center;
+  --gap: 6em;
+}
+.primary-navigation a > span {
+  font-weight: 700;
+  margin-right: 0.5em;
+}
+.primary-navigation li,
+.primary-navigation a {
+  padding-block: var(--underline-gap, 1.5em);
+}
+
+/* tab-list */
+.tab-list {
+  gap: 2em;
+}
+.tab-list > button {
+  padding-block: 0.5em;
+}
+
+/* underline-indicators */
+.underline-indicators > * {
+  border: 0;
+  cursor: pointer;
+  border-bottom: 2px solid hsl(var(--clr-white) / 0);
+}
+.underline-indicators > *:hover,
+.underline-indicators > *:focus {
+  border-bottom: 2px solid hsl(var(--clr-white) / 0.5);
+}
+.underline-indicators > .active,
+.underline-indicators > [aria-selected="true"] {
+  color: hsl(var(--clr-white) / 1);
+  border-bottom: 2px solid hsl(var(--clr-white) / 1);
+}
+
+/* dot-indicators */
+.dot-indicators > * {
+  aspect-ratio: 1;
+  padding: 0.5em;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: hsl(var(--clr-white) / 0.25);
+}
+.dot-indicators > *:hover,
+.dot-indicators > *:focus {
+  background-color: hsl(var(--clr-white) / 0.5);
+}
+.dot-indicators > [aria-selected="true"] {
+  background-color: hsl(var(--clr-white) / 1);
+}
+
+/* number-indicators */
+.number-indicators > * {
+  display: grid;
+  place-content: center;
+  aspect-ratio: 1;
+  padding: 1.5em;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: hsl(var(--clr-dark));
+  color: hsl(var(--clr-white));
+  border: 1px solid hsl(var(--clr-white) / 0.25);
+}
+.number-indicators > *:hover,
+.number-indicators > *:focus {
+  border: 1px solid hsl(var(--clr-white) / 0.5);
+}
+.number-indicators > [aria-selected="true"] {
+  background-color: hsl(var(--clr-white));
+  color: hsl(var(--clr-dark));
+  border: 1px solid hsl(var(--clr-white) / 1);
+}
+
+/* ----------------- */
+/*                   */
+/* ----------------- */
+body {
+  font-family: var(--ff-sans-normal);
+  font-size: var(--fs-400);
+  background-color: hsl(var(--clr-dark));
+  color: hsl(var(--clr-white));
+
+  background-image: url("/assets/crew/background-crew-desktop-flip.jpg");
+  background-repeat: no-repeat;
+  /* background-size: contain; */
+  background-position: center bottom;
+
+  padding-bottom: 12em;
+}
